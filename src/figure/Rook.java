@@ -1,6 +1,7 @@
 package figure;
 
 import board.*;
+import java.awt.Color;
 
 public class Rook extends Figure{
 	/**
@@ -8,7 +9,7 @@ public class Rook extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public Rook(boolean color){
+	public Rook(Color color){
 		this.name = "Rook";
 		this.color = color;
 		
@@ -24,7 +25,7 @@ public class Rook extends Figure{
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor()){
+				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
 					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
@@ -100,7 +101,7 @@ public class Rook extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].isEmpty() == false){
-					if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i];
 					}
 					else{
@@ -127,7 +128,7 @@ public class Rook extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (!chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].isEmpty()){
-					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()];
 					}
 					else{

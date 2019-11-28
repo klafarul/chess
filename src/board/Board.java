@@ -2,6 +2,7 @@ package board;
 
 import game.Lives;
 import figure.*;
+import java.awt.Color;
 
 
 
@@ -30,12 +31,12 @@ public class Board{
 	public void createFigures(){
 		
 		//black figures
-		Figure blackPawn = new Pawn(false);
-		Figure blackRook = new Rook(false);
-		Figure blackBishop = new Bishop(false);
-		Figure blackQueen = new Queen(false);
-		Figure blackKnight = new Knight(false);
-		Figure blackKing = new King(false);
+		Figure blackPawn = new Pawn(Color.BLACK);
+		Figure blackRook = new Rook(Color.BLACK);
+		Figure blackBishop = new Bishop(Color.BLACK);
+		Figure blackQueen = new Queen(Color.BLACK);
+		Figure blackKnight = new Knight(Color.BLACK);
+		Figure blackKing = new King(Color.BLACK);
 		
 		for (int i = 0; i < 8; i++){			
 			chessBoard[1][i].setFigure(blackPawn);
@@ -50,12 +51,12 @@ public class Board{
 		chessBoard[0][4].setFigure(blackKing);
 		
 		//white figures
-		Figure whitePawn = new Pawn(true);
-		Figure whiteRook = new Rook(true);
-		Figure whiteBishop = new Bishop(true);
-		Figure whiteQueen = new Queen(true);
-		Figure whiteKnight = new Knight(true);
-		Figure whiteKing = new King(true);
+		Figure whitePawn = new Pawn(Color.WHITE);
+		Figure whiteRook = new Rook(Color.WHITE);
+		Figure whiteBishop = new Bishop(Color.WHITE);
+		Figure whiteQueen = new Queen(Color.WHITE);
+		Figure whiteKnight = new Knight(Color.WHITE);
+		Figure whiteKing = new King(Color.WHITE);
 		
 		for (int i = 0; i < 8; i++){
 			chessBoard[6][i].setFigure(whitePawn);			
@@ -77,7 +78,7 @@ public class Board{
 		for (int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
 				if (!chessBoard[i][j].isEmpty()){
-					if (chessBoard[i][j].getFigure().getColor()){
+					if (chessBoard[i][j].getFigure().getColor() == Color.WHITE){
 						System.out.print("W" + chessBoard[i][j].getFigure().getName() + "      ");
 					}
 					else{

@@ -2,26 +2,26 @@ package figure;
 
 import board.Board;
 import board.Cell;
-
+import java.awt.Color;
 /**
 *абстрактный класс, который определяет поведение шахмотной фигуры
 **/
 
 
-	enum Color{
-		WHITE,
-		BLACK
-	}
+
 public abstract class Figure {
 	
 	protected String name;
 	// true - white; false - black;
-	protected boolean color;
+	protected Color color;
 	
 	//выполняется если  canMove = true 
 	public abstract void move(Board chessBoard, Cell currentCell);
 	public abstract Cell getCellCanBeEaten(Board chessBoard, Cell currentCell);	
 	public abstract Cell getCellCanBeMoved(Board chessBoard, Cell currentCell);
+	
+	
+	
 	
 	
 	
@@ -33,10 +33,10 @@ public abstract class Figure {
 		this.name = name;
 	}
 	
-	public boolean getColor(){
+	public Color getColor(){
 		return color;
 	}
-	public void setColor(boolean color){
+	public void setColor(Color color){
 		this.color = color;
 	}
 }

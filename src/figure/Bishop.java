@@ -1,6 +1,7 @@
 package figure;
 
 import board.*;
+import java.awt.Color;
 
 public class Bishop extends Figure{
 	/**
@@ -8,7 +9,7 @@ public class Bishop extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public Bishop(boolean color){
+	public Bishop(Color color){
 		this.name = "Bishop";
 		this.color = color;
 	}
@@ -20,7 +21,7 @@ public class Bishop extends Figure{
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor()){
+				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE ){
 					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
@@ -99,7 +100,7 @@ public class Bishop extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].isEmpty() == false){
-					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i];
 					}
 					else{
@@ -128,7 +129,7 @@ public class Bishop extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].isEmpty() == false){
-					if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i];
 					}
 					else{

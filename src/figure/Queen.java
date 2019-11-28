@@ -1,6 +1,7 @@
 package figure;
 
 import board.*;
+import java.awt.Color;
 
 public class Queen extends Figure{
 	/**
@@ -8,7 +9,7 @@ public class Queen extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public Queen(boolean color){
+	public Queen(Color color){
 		this.name = "Queen";
 		this.color = color;
 	}
@@ -20,7 +21,7 @@ public class Queen extends Figure{
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor()){
+				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
 					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
@@ -107,7 +108,7 @@ public class Queen extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].isEmpty() == false){
-					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY() + i];
 					}
 					else{
@@ -136,7 +137,7 @@ public class Queen extends Figure{
 		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].isEmpty() == false){
-					if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() + i];
 					}
 					else{

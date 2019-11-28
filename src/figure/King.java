@@ -1,6 +1,7 @@
 package figure;
 
 import board.*;
+import java.awt.Color;
 
 public class King extends Figure{
 	
@@ -10,7 +11,7 @@ public class King extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public King(boolean color){
+	public King(Color color){
 		this.name = "King";
 		this.color = color;
 	}
@@ -25,7 +26,7 @@ public class King extends Figure{
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor()){
+				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
 					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
@@ -68,7 +69,7 @@ public class King extends Figure{
 		while((cellCanBeEaten == null) && (countChecks < 9)){
 			try{
 				if (chessBoard.getChessBoard()[i][j].isEmpty() == false){
-					if (chessBoard.getChessBoard()[i][j].getFigure().getColor() != color){
+					if (chessBoard.getChessBoard()[i][j].getFigure().getColor() != this.color){
 						cellCanBeEaten = chessBoard.getChessBoard()[i][j];	
 					}
 				}

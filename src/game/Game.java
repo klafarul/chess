@@ -3,6 +3,7 @@ package game;
 import board.Board;
 import figure.*;
 import java.util.Random;
+import java.awt.Color;
 
 public class Game{
 	
@@ -16,26 +17,34 @@ public class Game{
 		board.outPutBoard();
 		//Color turnToMakeMove = Color.WHITE;
 		
-		boolean turn = true;
-		boolean flag = false;
+		
+		boolean moveDone = false;
+		Color colorMove = Color.WHITE;
+		
 		int i = 0, j = 0;
 		while (board.getLives().isKingsAlive()){
 			
 			for (i = 0; i < 8; i++){
 				for (j = 0; j < 8; j++){
 					if (board.getChessBoard()[i][j].isEmpty() == false){
-						if (board.getChessBoard()[i][j].getFigure().getColor() == turn){
+						if (board.getChessBoard()[i][j].getFigure().getColor() == colorMove){
 							if (board.getChessBoard()[i][j].getFigure().getCellCanBeMoved(board, board.getChessBoard()[i][j]) != null){
 								board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);
-								flag = true;						
+								moveDone = true;						
 							}
 						}
 					}
 				}
 			}
-			if (flag){
-				turn = !turn;
-				flag = false;
+			if (moveDone){
+				if (colorMove == Color.WHITE){
+					colorMove = Color.BLACK;
+				}
+				else{
+					colorMove = Color.WHITE; 
+				}
+				
+				moveDone = false;
 			}
 		}
 		System.out.println("==========================================================================================================");

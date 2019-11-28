@@ -2,7 +2,7 @@ package figure;
 
 
 import board.*;
-
+import java.awt.Color;
 
 /**
 *класс пешка
@@ -13,7 +13,7 @@ public class Pawn extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public Pawn(boolean color){
+	public Pawn(Color colr){
 		
 		this.name = "Pawn";
 		this.color = color;
@@ -33,7 +33,7 @@ public class Pawn extends Figure{
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor()){
+				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
 					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
@@ -61,7 +61,7 @@ public class Pawn extends Figure{
 			return getCellCanBeEaten(chessBoard, currentCell);
 		}
 		// color - white
-		if (color){
+		if (color == Color.WHITE){
 			if ((currentCell.getPosX() != 0) && (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY()].isEmpty()) ){
 				cellCanBeMoved = chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY()];
 				
@@ -87,7 +87,7 @@ public class Pawn extends Figure{
 		boolean flag = false;
 		
 		// color - white
-		if (color){
+		if (color == Color.WHITE){
 			int i = -1;
 
 			while (i <= 1){				
@@ -95,7 +95,7 @@ public class Pawn extends Figure{
 					//проверка наличия фигур, которые может съесть пешка
 					if(!chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].isEmpty()){
 						// проверка цвета найденной фигуры
-						if (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].getFigure().getColor() == false){
+						if (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].getFigure().getColor() == Color.BLACK){
 							cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i]; 						
 							 							
 						}						
@@ -115,7 +115,7 @@ public class Pawn extends Figure{
 					//проверка наличия фигур, которые может съесть пешка
 					if(chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i].isEmpty() == false){
 						// проверка цвета найденной фигуры
-						if (chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i].getFigure().getColor() == true){
+						if (chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i].getFigure().getColor() == Color.WHITE){
 							cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i]; 
 							 
 						}						
