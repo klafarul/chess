@@ -9,7 +9,14 @@ import figure.*;
 
 public class Board{
 	private Cell[][] chessBoard;
-	public Lives kingsLives;
+	private Lives kingsLives;
+	
+	public Lives getLives(){
+		return kingsLives;
+	}
+	public void setLives(Lives kingsLives){
+		this.kingsLives = kingsLives;
+	}
 	
 	public void createBoard(){
 		chessBoard = new Cell[8][8];
@@ -100,7 +107,7 @@ public class Board{
 		
 		
 		
-		System.out.println(board.kingsLives.getWinner());
+		System.out.println(board.getLives().getWinner());
 	}
 	
 	

@@ -27,59 +27,62 @@ public class Pawn extends Figure{
 	**/
 	@Override
 	public void move(Board chessBoard, Cell currentCell){
-		if (canEat(chessBoard, currentCell)){
+		
+		Cell cellCanBeEaten = getCellCanBeEaten(chessBoard, currentCell);
+		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
+		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
 				if (cellCanBeEaten.getFigure().getColor()){
-					chessBoard.kingsLives.removeWhiteKing();
+					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
-					chessBoard.kingsLives.removeBlackKing();
+					chessBoard.getLives().removeBlackKing();
 				}
 			}
 			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);			
+			currentCell.setFigure(null);	
 		}
 		else{
-			chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);
+			if (cellCanBeMoved != null){
+				chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
+				currentCell.setFigure(null);
+			}
 		}
-		cellCanBeEaten = null;
-		cellCanBeMoved = null;
 	}
+	
 	/**
 	*проверка: может ли пешка сделать ход?
 	**/
 	@Override
-	public boolean canMove(Board chessBoard, Cell currentCell){
-
-		if (canEat(chessBoard, currentCell)){return true;}
-		
+	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
+		Cell cellCanBeMoved = null;
+		if (getCellCanBeEaten(chessBoard, currentCell) != null){
+			return getCellCanBeEaten(chessBoard, currentCell);
+		}
 		// color - white
 		if (color){
 			if ((currentCell.getPosX() != 0) && (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY()].isEmpty()) ){
 				cellCanBeMoved = chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY()];
-				return true;
+				
 			}
 		}
-		
 		// color - black
 		else{
 			if ((currentCell.getPosX() != 7) && (chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY()].isEmpty())){
 				cellCanBeMoved = chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY()];
-				return true;
 			}
 		}
-		
-		
-		return false;
-				
+		return cellCanBeMoved;
 	}
+	
+	
 	/**
 	* проверка может ли пешка съесть фигуру
 	**/
 	@Override
-	public boolean canEat(Board chessBoard, Cell currentCell){
+	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		Cell cellCanBeEaten = null;
 		
 		boolean flag = false;
 		
@@ -90,11 +93,11 @@ public class Pawn extends Figure{
 			while (i <= 1){				
 				try{
 					//проверка наличия фигур, которые может съесть пешка
-					if(chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].isEmpty() == false){
+					if(!chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].isEmpty()){
 						// проверка цвета найденной фигуры
 						if (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i].getFigure().getColor() == false){
 							cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY() + i]; 						
-							flag = true; 							
+							 							
 						}						
 					}
 					i += 2;
@@ -114,7 +117,7 @@ public class Pawn extends Figure{
 						// проверка цвета найденной фигуры
 						if (chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i].getFigure().getColor() == true){
 							cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + 1][currentCell.getPosY() + i]; 
-							flag = true; 
+							 
 						}						
 					}
 					i += 2;
@@ -124,6 +127,6 @@ public class Pawn extends Figure{
 				}				
 			}			
 		}
-		return flag;
+		return cellCanBeEaten;
 	}
 }

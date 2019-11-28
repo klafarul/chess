@@ -3,6 +3,7 @@ package figure;
 import board.*;
 
 public class Knight extends Figure{
+	Cell cellCanBeMoved;
 	
 	/**
 	*Конструктор.
@@ -14,61 +15,62 @@ public class Knight extends Figure{
 		this.color = color;
 	}
 	
+	
 	/**
 	*сделать ход, если canMove = true;
 	**/
 	@Override
 	public void move(Board chessBoard, Cell currentCell){
-		if (canEat(chessBoard, currentCell)){
+		Cell cellCanBeEaten = getCellCanBeEaten(chessBoard, currentCell);
+		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
+		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
 				if (cellCanBeEaten.getFigure().getColor()){
-					chessBoard.kingsLives.removeWhiteKing();
+					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
-					chessBoard.kingsLives.removeBlackKing();
+					chessBoard.getLives().removeBlackKing();
 				}
 			}
 			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);			
+			currentCell.setFigure(null);	
 		}
 		else{
-			chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);
+			if (cellCanBeMoved != null){
+				chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
+				currentCell.setFigure(null);
+			}
 		}
-		cellCanBeEaten = null;
-		cellCanBeMoved = null;	
 	}
 	
 	/**
 	*проверка: может ли Knight сделать ход?
 	**/
 	@Override
-	public boolean canMove(Board chessBoard, Cell currentCell){
-		boolean flag = false;
-		if (canEat(chessBoard, currentCell)){
-			return true;
+	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
+		
+		if (getCellCanBeEaten(chessBoard, currentCell) != null){
+			return getCellCanBeEaten(chessBoard, currentCell);
 		}
-		if (cellCanBeMoved != null){
-			flag = true;
-		}
-		return flag;
+
+		return cellCanBeMoved;
 	}
 	
 	/**
 	* проверка может ли Knight съесть фигуру
 	**/
 	@Override
-	public boolean canEat(Board chessBoard, Cell currentCell){
+	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		Cell cellCanBeEaten = null;
 		boolean flag = false;
 		int i = 2, j = 1, countChecks = 0; 
 		
-		while (!flag && (countChecks < 4)){
+		while ((cellCanBeEaten == null) && (countChecks < 4)){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() - j].isEmpty() == false){
 					if (chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() - j].getFigure().getColor() != color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - i][currentCell.getPosY() - j];
-						flag = true;					
 					}					
 				}
 				else{
@@ -77,7 +79,6 @@ public class Knight extends Figure{
 				if (chessBoard.getChessBoard()[currentCell.getPosX() - j][currentCell.getPosY() - i].isEmpty() == false){
 					if (chessBoard.getChessBoard()[currentCell.getPosX() - j][currentCell.getPosY() - i].getFigure().getColor() != color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() - j][currentCell.getPosY() - i];
-						flag = true;					
 					}
 				}
 				else{
@@ -103,7 +104,7 @@ public class Knight extends Figure{
 				}
 			}			
 		}
-		return flag;
+		return cellCanBeEaten;
 	}
 	
 }

@@ -14,17 +14,18 @@ public class Game{
 		board.createBoard();
 		board.createFigures();
 		board.outPutBoard();
+		//Color turnToMakeMove = Color.WHITE;
 		
 		boolean turn = true;
 		boolean flag = false;
 		int i = 0, j = 0;
-		while (board.kingsLives.isKingsAlive()){
+		while (board.getLives().isKingsAlive()){
 			
 			for (i = 0; i < 8; i++){
 				for (j = 0; j < 8; j++){
 					if (board.getChessBoard()[i][j].isEmpty() == false){
 						if (board.getChessBoard()[i][j].getFigure().getColor() == turn){
-							if (board.getChessBoard()[i][j].getFigure().canMove(board, board.getChessBoard()[i][j])){
+							if (board.getChessBoard()[i][j].getFigure().getCellCanBeMoved(board, board.getChessBoard()[i][j]) != null){
 								board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);
 								flag = true;						
 							}
@@ -39,6 +40,6 @@ public class Game{
 		}
 		System.out.println("==========================================================================================================");
 		board.outPutBoard();	
-		System.out.println(board.kingsLives.getWinner());	
+		System.out.println(board.getLives().getWinner());	
 	}
 }

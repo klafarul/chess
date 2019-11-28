@@ -19,109 +19,92 @@ public class Rook extends Figure{
 	@Override
 	public void move(Board chessBoard, Cell currentCell){
 		
-		if (canEat(chessBoard, currentCell)){
+		Cell cellCanBeEaten = getCellCanBeEaten(chessBoard, currentCell);
+		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
+		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
 				if (cellCanBeEaten.getFigure().getColor()){
-					chessBoard.kingsLives.removeWhiteKing();
+					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
-					chessBoard.kingsLives.removeBlackKing();
+					chessBoard.getLives().removeBlackKing();
 				}
 			}
 			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);			
+			currentCell.setFigure(null);	
 		}
 		else{
-			chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);
+			if (cellCanBeMoved != null){
+				chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
+				currentCell.setFigure(null);
+			}
 		}
-		cellCanBeEaten = null;
-		cellCanBeMoved = null;
-		
-		
 	}
 	/**
 	*проверка: может ли Rook сделать ход?
 	**/
 	@Override
-	public boolean canMove(Board chessBoard, Cell currentCell){
-		if (canEat(chessBoard, currentCell)){return true;}
-		
+	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
+		if (getCellCanBeEaten(chessBoard, currentCell) != null){
+			return getCellCanBeEaten(chessBoard, currentCell);
+		}
+		Cell cellCanBeMoved = null;
 		int i = 1;
-		boolean flag = false;
-		
 	
-		
 		while (i >= -1){
 			
 			try{
-				
 				if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].isEmpty()){
 					cellCanBeMoved = chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()];
-					flag = true;
 				}
-				
 			}
 			catch(ArrayIndexOutOfBoundsException ex){
 			}
 			try{
-				
 				if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].isEmpty()){
 						cellCanBeMoved = chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i];
-						
-						flag = true;
 					}			
 			}
 			catch(ArrayIndexOutOfBoundsException ex){			
 			}
 			i = i -2;	
 		}
-		if (cellCanBeMoved != null){
-			
-		}
-		return flag;
 		
+		return cellCanBeMoved;
 	}
 	/**
 	* проверка может ли Rook съесть фигуру
 	**/
 	@Override
-	public boolean canEat(Board chessBoard, Cell currentCell){
-		boolean flag = false;
+	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		Cell cellCanBeEaten = null;
 		
-		while (!flag){
-			flag = findEnemyHorizontal(chessBoard, currentCell, 1);
-			flag = findEnemyHorizontal(chessBoard, currentCell, -1);
-			flag = findEnemyVertical(chessBoard, currentCell, -1);
-			flag = findEnemyVertical(chessBoard, currentCell, 1);
-		break;
-		}
 		
-		if (cellCanBeEaten != null){
-			
-			flag = true;
-		}
-		return flag;
+		cellCanBeEaten = findEnemyCellHorizontal(chessBoard, currentCell, 1);
+		cellCanBeEaten = findEnemyCellHorizontal(chessBoard, currentCell, -1);
+		cellCanBeEaten = findEnemyCellVertical(chessBoard, currentCell, -1);
+		cellCanBeEaten = findEnemyCellVertical(chessBoard, currentCell, 1);
+	
+		
+		return cellCanBeEaten;
 	}
 	/**
 	* поиск фигуру соперника по горизонтали;
 	*if i = 1 ищет вражеские фигуры справа, i = -1, ищет вражеские фигуры слева 
 	**/
-	protected boolean findEnemyHorizontal(Board chessBoard, Cell currentCell, int i){
-		boolean flag = false;
+	protected Cell findEnemyCellHorizontal(Board chessBoard, Cell currentCell, int i){
 		boolean end = false;
-		while (!flag && !end){
+		Cell cellCanBeEaten = null;
+		
+		while ((cellCanBeEaten == null) && !end){
 			try{
 				if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].isEmpty() == false){
 					if (chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i].getFigure().getColor() != color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX()][currentCell.getPosY() + i];
-						flag = true;
-						
 					}
 					else{
 						end = true;
-						
 					}
 				}		
 				i = (i > 0)? (++i):(--i);
@@ -131,36 +114,33 @@ public class Rook extends Figure{
 							
 			}			
 		}
-		return flag;
+		return cellCanBeEaten;
 	}
 	/**
 	* поиск фигуру соперника по вертикали;
 	* if i = 1 ищет вражеские фигуры сверху, i = -1, ищет вражеские фигуры снизу 
 	**/
-	protected boolean findEnemyVertical(Board chessBoard, Cell currentCell, int i){
-		boolean flag = false;
+	protected Cell findEnemyCellVertical(Board chessBoard, Cell currentCell, int i){
 		boolean end = false;
-		while (!flag && !end){
+		Cell cellCanBeEaten = null;
+		
+		while ((cellCanBeEaten == null) && !end){
 			try{
-				if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].isEmpty() == false){
+				if (!chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].isEmpty()){
 					if (chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()].getFigure().getColor() != color){
 						cellCanBeEaten = chessBoard.getChessBoard()[currentCell.getPosX() + i][currentCell.getPosY()];
-						flag = true;
-						
 					}
 					else{
 						end = true;
-				
 					}
 				}		
 				i = (i > 0)? (++i):(--i);
 			}
 			catch(ArrayIndexOutOfBoundsException ex){
 				end = true;
-				
 			}			
 		}
-		return flag;
+		return cellCanBeEaten;
 		
 	}
 

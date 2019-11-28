@@ -43,6 +43,4 @@ public class Lives{
 	public King getBlackKing(){
 		return kings.get(1);
 	}
-	
-	
 }

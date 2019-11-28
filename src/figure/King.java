@@ -3,6 +3,8 @@ package figure;
 import board.*;
 
 public class King extends Figure{
+	
+	private Cell cellCanBeMoved;
 	/**
 	*Конструктор.
 	*color true = white,
@@ -18,56 +20,56 @@ public class King extends Figure{
 	**/
 	@Override
 	public void move(Board chessBoard, Cell currentCell){
-		if (canEat(chessBoard, currentCell)){
+		Cell cellCanBeEaten = getCellCanBeEaten(chessBoard, currentCell);
+		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
+		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
 			if (cellCanBeEaten.getFigure().getName() == "King"){
 				if (cellCanBeEaten.getFigure().getColor()){
-					chessBoard.kingsLives.removeWhiteKing();
+					chessBoard.getLives().removeWhiteKing();
 				}
 				else{
-					chessBoard.kingsLives.removeBlackKing();
+					chessBoard.getLives().removeBlackKing();
 				}
 			}
 			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);			
+			currentCell.setFigure(null);	
 		}
 		else{
-			chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);
-		}
-		cellCanBeEaten = null;
-		cellCanBeMoved = null;	
+			if (cellCanBeMoved != null){
+				chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
+				currentCell.setFigure(null);
+			}
+		}	
 	}
 	
 	/**
 	*проверка: может ли Knight сделать ход?
 	**/
 	@Override
-	public boolean canMove(Board chessBoard, Cell currentCell){
-		boolean flag = false;
-		if (canEat(chessBoard, currentCell)){
-			return true;
+	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
+		
+		if (getCellCanBeEaten(chessBoard, currentCell) != null){
+			return getCellCanBeEaten(chessBoard, currentCell);
 		}
-		if (cellCanBeMoved != null){
-			flag = true;
-		}
-		return flag;
+
+		return cellCanBeMoved;
 		
 	}
 	/**
 	* проверка может ли Knight съесть фигуру
 	**/
 	@Override
-	public boolean canEat(Board chessBoard, Cell currentCell){
-		boolean flag = false;
+	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		Cell cellCanBeEaten = null;
+		
 		int i = currentCell.getPosX() - 1, countChecks = 0;
 		int j = currentCell.getPosY() - 1;
-		while(!flag && (countChecks < 9)){
+		while((cellCanBeEaten == null) && (countChecks < 9)){
 			try{
 				if (chessBoard.getChessBoard()[i][j].isEmpty() == false){
 					if (chessBoard.getChessBoard()[i][j].getFigure().getColor() != color){
-						cellCanBeEaten = chessBoard.getChessBoard()[i][j];					
-						flag = true;
+						cellCanBeEaten = chessBoard.getChessBoard()[i][j];	
 					}
 				}
 				else{
@@ -96,7 +98,7 @@ public class King extends Figure{
 		}
 
 		
-		return flag;
+		return cellCanBeEaten;
 	
 	}
 }
