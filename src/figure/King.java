@@ -6,11 +6,6 @@ import board.*;
 public class King extends Figure{
 	
 	
-	/**
-	*Конструктор.
-	*color true = white,
-	*color false = black
-	*/
 	public King(Color color){
 		this.name = "King";
 		this.color = color;

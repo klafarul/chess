@@ -12,7 +12,7 @@ import board.Cell;
 public abstract class Figure {
 	
 	protected String name;
-	// true - white; false - black;
+	
 	protected Color color;
 	
 	//true - ход сделан, false - ход не сделан

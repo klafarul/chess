@@ -8,11 +8,7 @@ import board.*;
 *класс пешка
 **/
 public class Pawn extends Figure{
-	/**
-	*Конструктор.
-	*color true = white,
-	*color false = black
-	*/
+
 	public Pawn(Color color){
 		
 		this.name = "Pawn";

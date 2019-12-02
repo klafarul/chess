@@ -4,11 +4,7 @@ import board.*;
 
 
 public class Bishop extends Figure{
-	/**
-	*Конструктор.
-	*color true = white,
-	*color false = black
-	*/
+	
 	public Bishop(Color color){
 		this.name = "Bishop";
 		this.color = color;

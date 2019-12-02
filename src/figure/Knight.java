@@ -5,11 +5,7 @@ import board.*;
 
 public class Knight extends Figure{
 	
-	/**
-	*Конструктор.
-	*color true = white,
-	*color false = black
-	*/
+	
 	public Knight(Color color){
 		this.name = "Knight";
 		this.color = color;

@@ -3,11 +3,6 @@ package board;
 import game.Lives;
 import figure.*;
 
-
-
-
-
-
 public class Board{
 	private Cell[][] chessBoard;
 	private Lives kingsLives;
