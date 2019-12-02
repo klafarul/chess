@@ -2,7 +2,7 @@ package figure;
 
 
 import board.*;
-import java.awt.Color;
+
 
 /**
 *класс пешка
@@ -13,7 +13,7 @@ public class Pawn extends Figure{
 	*color true = white,
 	*color false = black
 	*/
-	public Pawn(Color colr){
+	public Pawn(Color color){
 		
 		this.name = "Pawn";
 		this.color = color;
@@ -22,34 +22,8 @@ public class Pawn extends Figure{
 	
 	
 
-	/**
-	*сделать ход, если canMove = true;
-	**/
-	@Override
-	public void move(Board chessBoard, Cell currentCell){
-		
-		Cell cellCanBeEaten = getCellCanBeEaten(chessBoard, currentCell);
-		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
-		if (cellCanBeEaten != null){
-			System.out.println("Popalsya razbojnik");
-			if (cellCanBeEaten.getFigure().getName() == "King"){
-				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
-					chessBoard.getLives().removeWhiteKing();
-				}
-				else{
-					chessBoard.getLives().removeBlackKing();
-				}
-			}
-			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
-			currentCell.setFigure(null);	
-		}
-		else{
-			if (cellCanBeMoved != null){
-				chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
-				currentCell.setFigure(null);
-			}
-		}
-	}
+	
+	
 	
 	/**
 	*проверка: может ли пешка сделать ход?
@@ -129,4 +103,5 @@ public class Pawn extends Figure{
 		}
 		return cellCanBeEaten;
 	}
+	
 }

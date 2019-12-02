@@ -3,9 +3,9 @@ package game;
 import board.Board;
 import figure.*;
 import java.util.Random;
-import java.awt.Color;
 
 public class Game{
+
 	
 	
 	public Game(){
@@ -15,7 +15,7 @@ public class Game{
 		board.createBoard();
 		board.createFigures();
 		board.outPutBoard();
-		//Color turnToMakeMove = Color.WHITE;
+		
 		
 		
 		boolean moveDone = false;
@@ -28,10 +28,7 @@ public class Game{
 				for (j = 0; j < 8; j++){
 					if (board.getChessBoard()[i][j].isEmpty() == false){
 						if (board.getChessBoard()[i][j].getFigure().getColor() == colorMove){
-							if (board.getChessBoard()[i][j].getFigure().getCellCanBeMoved(board, board.getChessBoard()[i][j]) != null){
-								board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);
-								moveDone = true;						
-							}
+							moveDone = board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);							
 						}
 					}
 				}
@@ -43,12 +40,12 @@ public class Game{
 				else{
 					colorMove = Color.WHITE; 
 				}
-				
 				moveDone = false;
 			}
 		}
 		System.out.println("==========================================================================================================");
 		board.outPutBoard();	
 		System.out.println(board.getLives().getWinner());	
+		
 	}
 }

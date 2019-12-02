@@ -2,7 +2,7 @@ package board;
 
 import game.Lives;
 import figure.*;
-import java.awt.Color;
+
 
 
 
@@ -97,19 +97,4 @@ public class Board{
 	public Cell[][] getChessBoard(){
 		return chessBoard;
 	}
-	
-	
-	public void startGame(){
-		Board board = new Board();
-		board.createBoard();
-		board.createFigures();
-		
-		boolean turn = true;
-		
-		
-		
-		System.out.println(board.getLives().getWinner());
-	}
-	
-	
 }
