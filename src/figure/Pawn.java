@@ -27,9 +27,7 @@ public class Pawn extends Figure{
 	@Override
 	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
 		Cell cellCanBeMoved = null;
-		if (getCellCanBeEaten(chessBoard, currentCell) != null){
-			return getCellCanBeEaten(chessBoard, currentCell);
-		}
+
 		// color - white
 		if (color == Color.WHITE){
 			if ((currentCell.getPosX() != 0) && (chessBoard.getChessBoard()[currentCell.getPosX() - 1][currentCell.getPosY()].isEmpty()) ){

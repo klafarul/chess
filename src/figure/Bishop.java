@@ -17,9 +17,7 @@ public class Bishop extends Figure{
 	@Override
 	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
 		Cell cellCanBeMoved = null;
-		if (getCellCanBeEaten(chessBoard, currentCell) != null){
-			return getCellCanBeEaten(chessBoard, currentCell);
-		}
+		
 		
 		int i = 1;
 		while (i >= -1){

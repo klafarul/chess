@@ -15,9 +15,7 @@ public class Queen extends Figure{
 	@Override
 	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
 		
-		if (getCellCanBeEaten(chessBoard, currentCell) != null){
-			return getCellCanBeEaten(chessBoard, currentCell);
-		}
+		
 		
 		Cell cellCanBeMoved = null;
 		

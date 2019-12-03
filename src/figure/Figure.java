@@ -22,7 +22,7 @@ public abstract class Figure {
 		Cell cellCanBeMoved = getCellCanBeMoved(chessBoard, currentCell);
 		if (cellCanBeEaten != null){
 			System.out.println("Popalsya razbojnik");
-			if (cellCanBeEaten.getFigure().getName() == "King"){
+			if (cellCanBeEaten.getFigure().getName().equals("King")){
 				if (cellCanBeEaten.getFigure().getColor() == Color.WHITE){
 					chessBoard.getLives().removeWhiteKing();
 				}
