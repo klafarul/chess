@@ -28,10 +28,13 @@ public class Game{
 				for (j = 0; j < 8; j++){
 					if (board.getChessBoard()[i][j].isEmpty() == false){
 						if (board.getChessBoard()[i][j].getFigure().getColor() == colorMove){
-							moveDone = board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);							
+							if (!moveDone){
+								moveDone = board.getChessBoard()[i][j].getFigure().move(board, board.getChessBoard()[i][j]);
+							}
 						}
 					}
 				}
+				
 			}
 			if (moveDone){
 				if (colorMove == Color.WHITE){

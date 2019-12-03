@@ -30,11 +30,21 @@ public abstract class Figure {
 					chessBoard.getLives().removeBlackKing();
 				}
 			}
+			System.out.print(currentCell.getFigure().getColor() + " " + currentCell.getFigure().getName() + "(" + currentCell.getPosX() + ", " + currentCell.getPosY() + ") " );
+			System.out.print("Eat ");
+			System.out.println(cellCanBeEaten.getFigure().getColor() + " " + cellCanBeEaten.getFigure().getName() + "(" + cellCanBeEaten.getPosX() + ", " + cellCanBeEaten.getPosY() + ") ");
+			
+			
 			chessBoard.getChessBoard()[cellCanBeEaten.getPosX()][cellCanBeEaten.getPosY()].setFigure(currentCell.getFigure());
 			currentCell.setFigure(null);	
+			
 			return true;
 		}
 		if (cellCanBeMoved != null){
+			System.out.print(currentCell.getFigure().getColor() + " " + currentCell.getFigure().getName() + "(" + currentCell.getPosX() + ", " + currentCell.getPosY() + ") " );
+			System.out.print("Move to ");
+			System.out.println("(" + cellCanBeMoved.getPosX() + ", " + cellCanBeMoved.getPosY() + ") ");
+			
 			chessBoard.getChessBoard()[cellCanBeMoved.getPosX()][cellCanBeMoved.getPosY()].setFigure(currentCell.getFigure());
 			currentCell.setFigure(null);
 			return true;

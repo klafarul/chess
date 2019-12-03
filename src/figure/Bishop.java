@@ -1,6 +1,8 @@
 package figure;
 
 import board.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Bishop extends Figure{
@@ -49,6 +51,7 @@ public class Bishop extends Figure{
 	**/
 	@Override
 	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		
 		Cell cellCanBeEaten = null;
 		
 		

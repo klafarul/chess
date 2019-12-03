@@ -1,6 +1,8 @@
 package figure;
 
 import board.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class King extends Figure{
@@ -15,16 +17,19 @@ public class King extends Figure{
 	**/
 	@Override
 	public Cell getCellCanBeMoved(Board chessBoard, Cell currentCell){
+		ArrayList<Cell> cells = new ArrayList<Cell>();
+		Random random = new Random();
 		
 		Cell cellCanBeMoved = null;
 		
 		int i = currentCell.getPosX() - 1, countChecks = 0;
 		int j = currentCell.getPosY() - 1;
 		
-		while((cellCanBeMoved == null) && (countChecks < 9)){
+		while(countChecks < 9){
 			try{
 				if (chessBoard.getChessBoard()[i][j].isEmpty() == true){					
-					cellCanBeMoved = chessBoard.getChessBoard()[i][j];						
+					cellCanBeMoved = chessBoard.getChessBoard()[i][j];
+					cells.add(cellCanBeMoved);						
 				}				
 				countChecks++;
 				if ((countChecks % 3) == 0){
@@ -47,6 +52,9 @@ public class King extends Figure{
 				
 			}
 		}
+		if (cells.size() > 0){
+			cellCanBeMoved = cells.get(random.nextInt(cells.size()));
+		}
 		return cellCanBeMoved;
 	}
 	/**
@@ -54,15 +62,19 @@ public class King extends Figure{
 	**/
 	@Override
 	public Cell getCellCanBeEaten(Board chessBoard, Cell currentCell){
+		ArrayList<Cell> cells = new ArrayList<Cell>();
+		Random random = new Random();
 		Cell cellCanBeEaten = null;
+		
 		
 		int i = currentCell.getPosX() - 1, countChecks = 0;
 		int j = currentCell.getPosY() - 1;
-		while((cellCanBeEaten == null) && (countChecks < 9)){
+		while(countChecks < 9){
 			try{
 				if (chessBoard.getChessBoard()[i][j].isEmpty() == false){
-					if (chessBoard.getChessBoard()[i][j].getFigure().getColor() != this.color){
-						cellCanBeEaten = chessBoard.getChessBoard()[i][j];	
+					if (chessBoard.getChessBoard()[i][j].getFigure().getColor() != this.color){						
+						cellCanBeEaten = chessBoard.getChessBoard()[i][j];
+						cells.add(cellCanBeEaten);						
 					}
 				}				
 				countChecks++;
@@ -86,6 +98,10 @@ public class King extends Figure{
 				
 			}
 		}
+		if (cells.size() > 0){
+			cellCanBeEaten = cells.get(random.nextInt(cells.size()));
+		}
+		
 		return cellCanBeEaten;
 	}	
 }
